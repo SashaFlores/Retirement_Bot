@@ -1,4 +1,4 @@
-# Unit 13 Challenge - The Power of the Cloud and Unsupervised Learning
+# The Power of the Cloud and Unsupervised Learning
 
 ## Background
 
