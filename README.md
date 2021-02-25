@@ -1,34 +1,19 @@
-# The Power of the Cloud and Unsupervised Learning
+# Retirement Bot
 
-## Background
-
-It is time to take what you have learned about unsupervised learning and the AWS services and apply it to new situations. For this assignment.
-
-### Before You Begin
-
-1. Create a new repository for this project called `challenge`. 
-2. Clone the new repository to your computer.
-
-3. Inside your local git repository, create a directory for the challenge assignment you choose. Use folder names corresponding to the challenge
-
-4. Add your solution files to this folder.
-
-5. Push the above changes to GitHub or GitLab.
+                        The Power of the Cloud and Unsupervised Learning
 
 
-## Robo Advisor for Retirement Plans
+
+
+
 
 ![Robot](Images/robot.jpg)
 
 *Photo by [Alex Knight](https://www.pexels.com/@alex-knight-1272316?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/high-angle-photo-of-robot-2599244/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) | [Free License](https://www.pexels.com/photo-license/)*
 
-### Background
+## This Repo. was build on 3 phases: 
 
-You were hired as a digital transformation consultant by one of the most prominent retirement plan providers in the country; they want to increase their client portfolio, especially by engaging young people. Since machine learning and NLP are disrupting finance to improve customer experience, you decide to create a robo advisor that could be used by customers or potential new customers to get investment portfolio recommendations for retirement.
 
-In this homework assignment, you will combine your new Amazon Web Services skills with your already mastered Python superpowers, to create a bot that will recommend an investment portfolio for a retirement plan.
-
-You are asked to accomplish the following main tasks:
 
 1. **[Initial Robo Advisor Configuration:](#Initial-Robo-Advisor-Configuration)** Define an Amazon Lex bot with a single intent that establishes a conversation about the requirements to suggest an investment portfolio for retirement.
 
@@ -38,9 +23,9 @@ You are asked to accomplish the following main tasks:
 
 ---
 
-### Files
+### Testing your Bot Functionality
 
-* [lambda_function.py](Starter_Files/lambda_function.py)
+
 * [correct_dialog.txt](Test_Cases/correct_dialog.txt)
 * [age_error.txt](Test_Cases/age_error.txt)
 * [incorrect_amount_error.txt](Test_Cases/incorrect_amount_error.txt)
@@ -48,7 +33,7 @@ You are asked to accomplish the following main tasks:
 
 ---
 
-### Instructions
+## Tools used to build the bot
 
 #### Initial Robo Advisor Configuration
 
@@ -91,6 +76,9 @@ The `riskLevel` custom slot will be used to retrieve the risk level the user is 
 * Select the radial dial button next to **Restrict to Slot values and synonyms**, then fill in the appropriate values and synonums. *Example*: Low, Minimal; High, Maximum.
 * Click `Add slot to intent` when finished.
 
+To format the response cards for the intent, click on the gear icon next to the intent as seen in the image below:
+
+![gear_icon](Images/gear_icon.png)
 
 Next, input the following data in the resulting display window:
 
@@ -98,7 +86,17 @@ Next, input the following data in the resulting display window:
 * **Maximum number of retries:** 2
 * **Prompt response cards:** 4
 
-Configure the response cards for the `riskLevel` slot 
+Configure the response cards for the `riskLevel` slot as is shown bellow:
+
+| Card 1                              | Card 2                              |
+| ----------------------------------- | ----------------------------------- |
+| ![Card 1 sample](Images/card1.png)  | ![Card 2 sample](Images/card2.png)  |
+
+| Card 3                              | Card 4                              |
+| ----------------------------------- | ----------------------------------- |
+| ![Card 3 sample](Images/card3.png)  | ![Card 4 sample](Images/card4.png)  |
+
+**Note:** You can download free icons from [this website](https://www.iconfinder.com/) or you can use the icons provided in the [`Icons` directory](Icons/).
 
 Move to the *Confirmation Prompt* section, and set the following messages:
 
@@ -107,16 +105,19 @@ Move to the *Confirmation Prompt* section, and set the following messages:
 
 Leave the error handling configuration for the `RecommendPortfolio` bot with the default values.
 
+![Error handling configuration](Images/error_handling.png)
 
 #### Build and Test the Robo Advisor
 
-In this section, you will test your Robo Advisor. To build your bot, click on the `Build` button in the upper right hand corner. Once the build is complete, test it in the chatbot window. You should see a conversation like the one below.
+To build your bot, click on the `Build` button in the upper right hand corner. Once the build is complete, test it in the chatbot window. You should see a conversation like the one below.
 
 ![Robo Advisor test](Images/bot-test-no-lambda.gif)
 
 #### Enhance the Robo Advisor with an Amazon Lambda Function
 
+In this section, you will create an Amazon Lambda function that will validate the data provided by the user on the Robo Advisor. Start by creating a new lambda function from scratch and name it `recommendPortfolio`. Select Python 3.7 as runtime.
 
+In the Lambda function, you will use [lambda_function.py](Retirement_RoboAdvisor/lambda_function.py) instead of the AWS generated default lines of code.
 
 ##### User Input Validation
 
@@ -134,3 +135,26 @@ Once the intent is fulfilled, the bot should response with an investment recomme
 * **high:** "20% bonds (AGG), 80% equities (SPY)"
 * **very high:** "0% bonds (AGG), 100% equities (SPY)"
 
+
+
+Now it's time to test our lambada function  [sample test cases here.](Test_Cases/) 
+
+After successfully testing the code, open the Amazon Lex Console and navigate to the `RecommendPortfolio` bot configuration, integrate your new lambda function by selecting it in the _Lambda initialization and validation_ and _Fulfillment_ sections. Build your bot, and you should have a conversation as follows.
+
+![Robo Advisor test with Lambda](Images/bot-test-with-lambda.gif)
+
+
+
+* Make sure your intent and slot names are named correctly in your Lambda code.  The names in Lex should match the names in Lambda exactly:
+
+![Lex_Names1](Images/Lex_names1.png)
+![Lex_Names2](Images/Lex_names2.png)
+
+* You may have to refresh the Lex intent page after creating the custom slot and the lambda function in order to see them in the options.
+
+
+#### Helpful Resource
+
+
+
+* [Install External Libraries and Kernels in Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-add-external.html)
